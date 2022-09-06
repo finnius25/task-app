@@ -1,54 +1,37 @@
 import "./App.css";
-import Overview from "./components/Overview";
-import React, { Component } from "react";
-import uniqid from "uniqid";
+import React, { useState } from "react";
+import Form from "./components/Form";
+import TasksList from "./components/TasksList";
 
-class App extends Component {
-  constructor() {
-    super();
+const App = () => {
+  const [task, setTask] = useState("");
+  const [tasks, setTasks] = useState([]);
+  const [taskEdit, setTaskEdit] = useState("")
+  const [textEdit, setTextEdit ] = useState("")
 
-    this.state = {
-      task: { text: " ", id: uniqid()},
-      tasks: [],
-    };
-  }
-
-  handleChange = (e) => {
-    this.setState({
-      task: {
-        text: e.target.value,
-        id : this.state.task.id
-      },
-    });
-  };
-
-  onSubmitTask = (e) => {
-    e.preventDefault();
-    this.setState({
-      tasks: this.state.tasks.concat(this.state.task),
-      task: { text: " ", id : uniqid() },
-    });
-  };
-
-  render() {
-    const { task, tasks } = this.state;
-
-    return (
-      <div>
-        <form onSubmit={this.onSubmitTask}>
-          <label htmlFor="taskInput">Add Task : </label>
-          <input
-            type="text"
-            id="taskInput"
-            value={task.text}
-            onChange={this.handleChange}
-          />
-          <button type="submit">Submit</button>
-        </form>
-        <Overview tasks={tasks} />
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      <header>
+        <h1>Task App</h1>
+        <Form
+          task={task}
+          setTask={setTask}
+          tasks={tasks}
+          setTasks={setTasks}
+        ></Form>
+        <TasksList
+          task={task}
+          setTask={setTask}
+          tasks={tasks}
+          setTasks={setTasks}
+          taskEdit={taskEdit}
+          setTaskEdit={setTaskEdit}
+          textEdit={textEdit}
+          setTextEdit={setTextEdit}
+        />
+      </header>
+    </div>
+  );
+};
 
 export default App;

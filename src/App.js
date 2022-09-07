@@ -6,7 +6,7 @@ import TasksList from "./components/TasksList";
 const App = () => {
   const [task, setTask] = useState("");
   const [tasks, setTasks] = useState([]);
-  const [taskEdit, setTaskEdit] = useState("")
+  const [taskEdit, setTaskEdit] = useState(false)
   const [textEdit, setTextEdit ] = useState("")
 
   return (

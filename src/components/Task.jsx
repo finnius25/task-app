@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 function Task({
   text,
@@ -13,33 +13,40 @@ function Task({
   const editTextHandler = (e) => {
     setTextEdit(e.target.value);
   };
-  
+
   const deleteHandler = () => {
     setTasks(tasks.filter((el) => el.id !== todo.id));
   };
 
   const editHandler = () => {
-    setTaskEdit(todo.id);
+    setTaskEdit((prevTaskEdit) => !prevTaskEdit);
   };
+
+  const updateHandler = () => {
+    todo.text = textEdit
+    setTaskEdit(prevState => !prevState)
+  }
+
+
 
   return (
     <div>
-      {taskEdit.id === todo.id ? (
+      {taskEdit ? (
         <div>
           <input type="text" onChange={editTextHandler} />
-          <button type="button"></button>
         </div>
       ) : (
         <div>
           <li>{text}</li>
-          <button type="button" onClick={editHandler}>
-            Edit
-          </button>
-          <button type="button" onClick={deleteHandler}>
-            Delete
-          </button>
         </div>
       )}
+      <button type="button" onClick={updateHandler}>Update</button>
+      <button type="button" onClick={editHandler}>
+        Edit
+      </button>
+      <button type="button" onClick={deleteHandler}>
+        Delete
+      </button>
     </div>
   );
 }
